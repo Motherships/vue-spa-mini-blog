@@ -9,7 +9,7 @@ import AddArticleForm from '@/components/AddArticleForm.vue';
         <div class="card-content">
           <div class="media">
             <div class="media-content">
-              <p class="title is-4">Add Article</p>
+              <p class="title">Add Article</p>
             </div>
           </div>
 

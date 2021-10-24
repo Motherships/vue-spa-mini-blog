@@ -3,7 +3,7 @@ export interface NewComment {
   authorName: string;
   content: string;
 }
-export default interface Comment {
+export default interface CommentModel {
   id: string;
   parentId: string;
   authorName: string;

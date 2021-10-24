@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import { reactive, toRef } from 'vue';
+import { reactive } from 'vue';
 import { useStore } from 'vuex';
+
 const props = defineProps<{ parentId: string }>();
+const emit = defineEmits<{
+  (e: 'newComment'): void;
+}>();
 
 const store = useStore();
 
@@ -55,9 +59,8 @@ const sumbitForm = () => {
       content: newCommentForm.content.value,
     };
     store.commit('addComment', newComment);
-
     Object.assign(newCommentForm, defaultNewCommentForm);
-
+    emit('newComment');
     return true;
   }
 

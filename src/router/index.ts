@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Home from '@/views/Home.vue';
 import Blog from '@/views/Blog.vue';
 import AddArticle from '@/views/AddArticle.vue';
-import SingleArticle from '@/views/SingleArticle.vue';
+import ArticlePage from '@/views/ArticlePage.vue';
 
 export const staticRoutes = [
   {
@@ -23,7 +23,7 @@ export const staticRoutes = [
   },
 ];
 
-export const dynamicRoutes = [{ path: '/blog/:id', component: SingleArticle }];
+export const dynamicRoutes = [{ path: '/blog/:id', component: ArticlePage }];
 
 const router = createRouter({
   history: createWebHistory(),

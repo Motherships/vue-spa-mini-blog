@@ -11,7 +11,7 @@ const store = useStore();
     <section class="section">
       <div class="container">
         <div class="content">
-          <h1>List of articles</h1>
+          <h1 class="title">List of articles</h1>
           <ul class="blog__articles-list">
             <li
               v-for="article in store.state.articles"

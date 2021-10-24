@@ -5,7 +5,7 @@
     <section class="section">
       <div class="container">
         <div class="content">
-          <h1>Тут будет описание работы</h1>
+          <h1 class="title">Тут будет описание работы</h1>
           <p>Нужно будет закинуть .md файл и преобразовать его в HTML</p>
         </div>
       </div>

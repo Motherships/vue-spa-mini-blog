@@ -8,11 +8,11 @@ import {
 import { nanoid } from 'nanoid';
 
 import Article, { NewArticle } from '@/models/ArticleModel';
-import Comment, { NewComment } from '@/models/CommentModel';
+import CommentModel, { NewComment } from '@/models/CommentModel';
 
 export interface State {
   articles: Array<Article>;
-  comments: Array<Comment>;
+  comments: Array<CommentModel>;
 }
 
 export const key: InjectionKey<Store<State>> = Symbol();
@@ -20,7 +20,9 @@ export const key: InjectionKey<Store<State>> = Symbol();
 const store = createStore<State>({
   state: {
     articles: JSON.parse(localStorage.getItem('articles') || '[]') as Article[],
-    comments: JSON.parse(localStorage.getItem('comments') || '[]') as Comment[],
+    comments: JSON.parse(
+      localStorage.getItem('comments') || '[]'
+    ) as CommentModel[],
   },
 
   mutations: {
@@ -41,7 +43,7 @@ const store = createStore<State>({
         parentId: newComment.parentId,
         authorName: newComment.authorName,
         content: newComment.content,
-      } as Comment;
+      } as CommentModel;
 
       state.comments.push(comment);
       localStorage.setItem('comments', JSON.stringify(state.comments));
@@ -64,13 +66,14 @@ const store = createStore<State>({
     },
 
     getCommentsByParentId: (state) => (id: string) => {
+      console.log('TRIGGERED');
       const comments = JSON.parse(
         JSON.stringify(
           state.comments.filter((comment) => comment.parentId === id) || []
         )
       );
 
-      return comments as Comment[];
+      return comments as CommentModel[];
     },
   },
 

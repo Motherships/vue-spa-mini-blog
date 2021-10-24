@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import AddCommentForm from '@/components/AddCommentForm.vue';
+
 defineProps<{ parentId: string }>();
+
+const emit = defineEmits<{
+  (e: 'newComment'): void;
+}>();
 </script>
 
 <template>
@@ -9,12 +14,15 @@ defineProps<{ parentId: string }>();
       <div class="card-content">
         <div class="media">
           <div class="media-content">
-            <p class="title is-4">Add Comment</p>
+            <p class="title">Add Comment</p>
           </div>
         </div>
 
         <div class="content">
-          <AddCommentForm :parent-id="parentId" />
+          <AddCommentForm
+            :parent-id="parentId"
+            @new-comment="emit('newComment')"
+          />
         </div>
       </div>
     </div>
