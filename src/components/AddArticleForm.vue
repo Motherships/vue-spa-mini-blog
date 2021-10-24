@@ -1,5 +1,10 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
+import { useStore } from 'vuex';
+import { nanoid } from 'nanoid';
+
+const store = useStore();
+console.log(store);
 
 const newArticleForm = reactive({
   title: {
@@ -41,11 +46,8 @@ const isContentValid = () => {
 };
 
 const sumbitForm = () => {
-  const titleIsValid = isTitleValid();
-  const contentIsValid = isContentValid();
-
-  if (titleIsValid && contentIsValid) {
-    console.log('valid');
+  if (isTitleValid() && isContentValid()) {
+    console.log(nanoid());
   } else {
     console.log('invalid');
   }
