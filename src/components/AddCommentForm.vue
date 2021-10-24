@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { reactive, toRef } from 'vue';
 import { useStore } from 'vuex';
+const props = defineProps<{ parentId: string }>();
 
 const store = useStore();
 
-const defaultNewArticleForm = {
-  title: {
+const defaultNewCommentForm = {
+  name: {
     value: '',
     error: true,
     touched: false,
@@ -16,45 +17,47 @@ const defaultNewArticleForm = {
     touched: false,
   },
 };
-const newArticleForm = reactive({ ...defaultNewArticleForm });
+const newCommentForm = reactive({ ...defaultNewCommentForm });
 
 const isTitleValid = () => {
-  if (newArticleForm.title.value === '') {
-    if (newArticleForm.title.touched === false) {
-      newArticleForm.title.touched = true;
+  if (newCommentForm.name.value === '') {
+    if (newCommentForm.name.touched === false) {
+      newCommentForm.name.touched = true;
     }
-    newArticleForm.title.error = true;
+    newCommentForm.name.error = true;
     return false;
   }
 
-  newArticleForm.title.error = false;
+  newCommentForm.name.error = false;
   return true;
 };
 
 const isContentValid = () => {
-  if (newArticleForm.content.value === '') {
-    if (newArticleForm.content.touched === false) {
-      newArticleForm.content.touched = true;
+  if (newCommentForm.content.value === '') {
+    if (newCommentForm.content.touched === false) {
+      newCommentForm.content.touched = true;
     }
-    newArticleForm.content.error = true;
+    newCommentForm.content.error = true;
     return false;
   }
 
-  newArticleForm.content.error = false;
+  newCommentForm.content.error = false;
   return true;
 };
-
 const sumbitForm = () => {
-  const titleIsValid = isTitleValid();
+  const nameIsValid = isTitleValid();
   const contentIsValid = isContentValid();
-  if (titleIsValid && contentIsValid) {
+  if (nameIsValid && contentIsValid) {
     console.log('valid');
-    const newArticle = {
-      title: newArticleForm.title.value,
-      content: newArticleForm.content.value,
+    const newComment = {
+      parentId: props.parentId,
+      authorName: newCommentForm.name.value,
+      content: newCommentForm.content.value,
     };
-    store.commit('addArticle', newArticle);
-    Object.assign(newArticleForm, defaultNewArticleForm);
+    store.commit('addComment', newComment);
+
+    Object.assign(newCommentForm, defaultNewCommentForm);
+
     return true;
   }
 
@@ -66,25 +69,25 @@ const sumbitForm = () => {
 <template>
   <form action="" method="post" @submit.prevent="sumbitForm">
     <div class="field">
-      <label class="label">Title</label>
+      <label class="label">Author Name</label>
       <div class="control">
         <input
           class="input"
           type="text"
-          placeholder="Title"
-          v-model="newArticleForm.title.value"
+          placeholder="Author name"
+          v-model="newCommentForm.name.value"
           :class="{
             'is-danger':
-              newArticleForm.title.touched && newArticleForm.title.error,
+              newCommentForm.name.touched && newCommentForm.name.error,
           }"
           @input="isTitleValid"
         />
       </div>
       <p
-        v-if="newArticleForm.title.touched && newArticleForm.title.error"
+        v-if="newCommentForm.name.touched && newCommentForm.name.error"
         class="help is-danger"
       >
-        Title can't be empty
+        Name can't be empty
       </p>
     </div>
 
@@ -94,16 +97,16 @@ const sumbitForm = () => {
         <textarea
           class="textarea"
           placeholder="Content"
-          v-model="newArticleForm.content.value"
+          v-model="newCommentForm.content.value"
           :class="{
             'is-danger':
-              newArticleForm.content.touched && newArticleForm.content.error,
+              newCommentForm.content.touched && newCommentForm.content.error,
           }"
           @input="isContentValid"
         ></textarea>
       </div>
       <p
-        v-if="newArticleForm.content.touched && newArticleForm.content.error"
+        v-if="newCommentForm.content.touched && newCommentForm.content.error"
         class="help is-danger"
       >
         Content can't be empty
@@ -114,10 +117,10 @@ const sumbitForm = () => {
       <div class="control">
         <button
           class="button is-link"
-          :disabled="newArticleForm.title.error || newArticleForm.content.error"
+          :disabled="newCommentForm.name.error || newCommentForm.content.error"
           :class="{
             'is-disabled':
-              newArticleForm.title.error || newArticleForm.content.error,
+              newCommentForm.name.error || newCommentForm.content.error,
           }"
         >
           Submit

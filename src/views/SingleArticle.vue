@@ -2,11 +2,15 @@
 import { useStore } from 'vuex';
 import { useRoute } from 'vue-router';
 import Article from '@/components/Article.vue';
+import Comment from '@/components/Comment.vue';
+import AddCommentBlock from '@/components/AddCommentBlock.vue';
 
 const store = useStore();
 const route = useRoute();
 
-const article = store.getters.setCurrentArticleByID(route.params.id);
+const article = store.getters.getArticleById(route.params.id);
+const comments = store.getters.getCommentsByParentId(article.id);
+console.log(comments);
 </script>
 
 <template>
@@ -17,6 +21,12 @@ const article = store.getters.setCurrentArticleByID(route.params.id);
           <div class="columns">
             <div class="column">
               <Article :article="article" />
+              <ul>
+                <li v-for="comment in comments" :key="comment.id">
+                  <Comment :comment="comment" />
+                </li>
+              </ul>
+              <AddCommentBlock :parent-id="article.id" />
             </div>
           </div>
         </div>

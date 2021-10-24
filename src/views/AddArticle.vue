@@ -8,7 +8,7 @@ import AddArticleBlock from '@/components/AddArticleBlock.vue';
       <div class="container">
         <div class="content">
           <div class="columns">
-            <div class="column is-4">
+            <div class="column">
               <AddArticleBlock />
             </div>
           </div>

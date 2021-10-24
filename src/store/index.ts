@@ -7,10 +7,12 @@ import {
 } from 'vuex';
 import { nanoid } from 'nanoid';
 
-import Article, { NewArticle, CurrentArticle } from '@/models/ArticleModel';
+import Article, { NewArticle } from '@/models/ArticleModel';
+import Comment, { NewComment } from '@/models/CommentModel';
 
 export interface State {
   articles: Array<Article>;
+  comments: Array<Comment>;
 }
 
 export const key: InjectionKey<Store<State>> = Symbol();
@@ -18,6 +20,7 @@ export const key: InjectionKey<Store<State>> = Symbol();
 const store = createStore<State>({
   state: {
     articles: JSON.parse(localStorage.getItem('articles') || '[]') as Article[],
+    comments: JSON.parse(localStorage.getItem('comments') || '[]') as Comment[],
   },
 
   mutations: {
@@ -31,13 +34,25 @@ const store = createStore<State>({
       state.articles.push(article);
       localStorage.setItem('articles', JSON.stringify(state.articles));
     },
+
+    addComment(state, newComment: NewComment) {
+      const comment = {
+        id: nanoid(),
+        parentId: newComment.parentId,
+        authorName: newComment.authorName,
+        content: newComment.content,
+      } as Comment;
+
+      state.comments.push(comment);
+      localStorage.setItem('comments', JSON.stringify(state.comments));
+    },
   },
 
   getters: {
-    setCurrentArticleByID: (state) => (articleID: string) => {
+    getArticleById: (state) => (articleID: string) => {
       const foundArticle = JSON.parse(
         JSON.stringify(
-          state.articles.find((article) => article.id === articleID)
+          state.articles.find((article) => article.id === articleID) || {}
         )
       );
       return {
@@ -45,7 +60,17 @@ const store = createStore<State>({
         title: foundArticle.title,
         content: foundArticle.content,
         comments: [],
-      } as CurrentArticle;
+      } as Article;
+    },
+
+    getCommentsByParentId: (state) => (id: string) => {
+      const comments = JSON.parse(
+        JSON.stringify(
+          state.comments.filter((comment) => comment.parentId === id) || []
+        )
+      );
+
+      return comments as Comment[];
     },
   },
 

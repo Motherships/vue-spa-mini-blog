@@ -39,7 +39,5 @@ const store = useStore();
     margin: 0;
     list-style: none;
   }
-  &__article {
-  }
 }
 </style>
