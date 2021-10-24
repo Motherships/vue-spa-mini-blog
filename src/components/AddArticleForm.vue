@@ -38,22 +38,26 @@ const isContentValid = () => {
     newArticleForm.content.error = true;
     return false;
   }
-  newArticleForm.content.error = false;
 
+  newArticleForm.content.error = false;
   return true;
 };
 
 const sumbitForm = () => {
-  if (isTitleValid() && isContentValid()) {
+  const titleIsValid = isTitleValid();
+  const contentIsValid = isContentValid();
+  if (titleIsValid && contentIsValid) {
     console.log('valid');
     const newArticle = {
       title: newArticleForm.title.value,
       content: newArticleForm.content.value,
     };
     store.commit('addArticle', newArticle);
-  } else {
-    console.log('invalid');
+    return true;
   }
+
+  console.log('invalid');
+  return false;
 };
 </script>
 
@@ -81,6 +85,7 @@ const sumbitForm = () => {
         Title can't be empty
       </p>
     </div>
+
     <div class="field">
       <label class="label">Content</label>
       <div class="control">

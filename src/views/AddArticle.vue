@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AddArticleForm from '@/components/AddArticleForm.vue';
+import AddArticleBlock from '@/components/AddArticleBlock.vue';
 </script>
 
 <template>
@@ -7,10 +7,9 @@ import AddArticleForm from '@/components/AddArticleForm.vue';
     <section class="section">
       <div class="container">
         <div class="content">
-          <h1>Добавить публикацию</h1>
           <div class="columns">
             <div class="column is-4">
-              <AddArticleForm />
+              <AddArticleBlock />
             </div>
           </div>
         </div>
