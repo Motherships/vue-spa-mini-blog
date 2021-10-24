@@ -23,7 +23,9 @@ export const staticRoutes = [
   },
 ];
 
-export const dynamicRoutes = [{ path: '/blog/:id', component: ArticlePage }];
+export const dynamicRoutes = [
+  { path: '/blog/:id', name: 'SingleArticle', component: ArticlePage },
+];
 
 const router = createRouter({
   history: createWebHistory(),

@@ -66,7 +66,6 @@ const store = createStore<State>({
     },
 
     getCommentsByParentId: (state) => (id: string) => {
-      console.log('TRIGGERED');
       const comments = JSON.parse(
         JSON.stringify(
           state.comments.filter((comment) => comment.parentId === id) || []

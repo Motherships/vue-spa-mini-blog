@@ -39,7 +39,14 @@ const showNavBar = ref(false);
             :key="route.path"
             class="navbar-item"
           >
-            <router-link :to="route.path">{{ route.name }}</router-link>
+            <router-link :to="{ name: route.name }">
+              {{ route.name }}
+            </router-link>
+          </div>
+          <div class="navbar-item">
+            <router-link :to="{ name: 'Blog', params: { page: 1 } }">
+              Blog
+            </router-link>
           </div>
         </div>
 
