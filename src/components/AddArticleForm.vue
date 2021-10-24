@@ -1,20 +1,18 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
 import { useStore } from 'vuex';
-import { nanoid } from 'nanoid';
 
 const store = useStore();
-console.log(store);
 
 const newArticleForm = reactive({
   title: {
     value: '',
-    error: false,
+    error: true,
     touched: false,
   },
   content: {
     value: '',
-    error: false,
+    error: true,
     touched: false,
   },
 });
@@ -47,7 +45,12 @@ const isContentValid = () => {
 
 const sumbitForm = () => {
   if (isTitleValid() && isContentValid()) {
-    console.log(nanoid());
+    console.log('valid');
+    const newArticle = {
+      title: newArticleForm.title.value,
+      content: newArticleForm.content.value,
+    };
+    store.commit('addArticle', newArticle);
   } else {
     console.log('invalid');
   }
@@ -102,7 +105,16 @@ const sumbitForm = () => {
 
     <div class="field is-grouped">
       <div class="control">
-        <button class="button is-link">Submit</button>
+        <button
+          class="button is-link"
+          :disabled="newArticleForm.title.error || newArticleForm.content.error"
+          :class="{
+            'is-disabled':
+              newArticleForm.title.error || newArticleForm.content.error,
+          }"
+        >
+          Submit
+        </button>
       </div>
     </div>
   </form>

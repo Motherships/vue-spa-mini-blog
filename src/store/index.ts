@@ -5,8 +5,9 @@ import {
   Store,
   createLogger,
 } from 'vuex';
+import { nanoid } from 'nanoid';
 
-import Article from '@/models/ArticleModel';
+import Article, { newArticle } from '@/models/ArticleModel';
 
 export interface State {
   articles: Array<Article>;
@@ -19,6 +20,19 @@ const store = createStore<State>({
   state: {
     articles: [] as Article[],
   },
+
+  mutations: {
+    addArticle(state, newArticle: newArticle) {
+      const article = {
+        id: nanoid(),
+        title: newArticle.title,
+        content: newArticle.content,
+      } as Article;
+
+      state.articles.push(article);
+    },
+  },
+
   strict: true,
   plugins: [createLogger()],
 });
