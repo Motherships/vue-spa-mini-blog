@@ -20,15 +20,21 @@
 
 # Особенности этой работы для меня
 
--   Впервые использую [Vite](https://vitejs.dev/)
--   Впервые пишу на [TS](https://www.typescriptlang.org/)
--   Впервые использую [Vue Router](https://router.vuejs.org/) и [VueX](https://vuex.vuejs.org/) вне [NuxtJS](https://nuxtjs.org/)
+- Впервые использую [Vite](https://vitejs.dev/)
+- Впервые пишу на [TS](https://www.typescriptlang.org/)
+- Впервые использую [Vue Router](https://router.vuejs.org/) и [VueX](https://vuex.vuejs.org/) вне [NuxtJS](https://nuxtjs.org/) (я понимаю что VueX для хранения в localStorage - это оверкил, без него было бы элегантнее, но рынок требует знаний с VueX - так что мне выгоднее демострировать навыки с VueX)
 
 # Как запустить
 
--   Клонируем репозиторий
--   yarn install
--   yarn run dev
+- Клонируем репозиторий
+- Устанавливаем зависимости
+  `yarn install`
+- Запускаем дев-сервер
+  `yarn run dev`
+
+## TODO:
+
+Описать сборку для проды
 
 # VSCode подсвечивает ошибки
 

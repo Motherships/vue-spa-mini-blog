@@ -1,21 +1,24 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 import Home from '@/views/Home.vue';
-
-const About = { template: '<div>About</div>' };
+import Blog from '@/views/Blog.vue';
+import AddArticle from '@/views/AddArticle.vue';
 
 export const routes = [
   {
     path: '/',
-    text: 'Go to home',
     name: 'Home',
     component: Home,
   },
   {
-    path: '/about',
-    text: 'Go to About',
-    name: 'About',
-    component: About,
+    path: '/blog',
+    name: 'Blog',
+    component: Blog,
+  },
+  {
+    path: '/blog/new',
+    name: 'Add Article',
+    component: AddArticle,
   },
 ];
 

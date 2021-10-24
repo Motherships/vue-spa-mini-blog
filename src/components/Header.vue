@@ -21,10 +21,10 @@ const showNavBar = ref(false);
           role="button"
           class="navbar-burger"
           :class="{ 'is-active': showNavBar }"
-          @click="showNavBar = !showNavBar"
           aria-label="menu"
           aria-expanded="false"
           data-target="navbar"
+          @click="showNavBar = !showNavBar"
         >
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
@@ -34,8 +34,8 @@ const showNavBar = ref(false);
 
       <div id="navbar" class="navbar-menu" :class="{ 'is-active': showNavBar }">
         <div class="navbar-start">
-          <div class="navbar-item" v-for="route in routes" :key="route.path">
-            <router-link :to="route.path">{{ route.text }}</router-link>
+          <div v-for="route in routes" :key="route.path" class="navbar-item">
+            <router-link :to="route.path">{{ route.name }}</router-link>
           </div>
         </div>
 

@@ -11,4 +11,13 @@ import Footer from '@/components/Footer.vue';
 
 <style lang="scss">
 @import 'bulma/bulma.sass';
+
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  main {
+    flex: 1;
+  }
+}
 </style>

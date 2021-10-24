@@ -16,6 +16,9 @@ export interface State {
 export const key: InjectionKey<Store<State>> = Symbol();
 
 const store = createStore<State>({
+  state: {
+    articles: [] as Article[],
+  },
   strict: true,
   plugins: [createLogger()],
 });
