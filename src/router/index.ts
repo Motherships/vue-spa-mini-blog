@@ -4,14 +4,16 @@ import Home from '@/views/Home.vue';
 
 const About = { template: '<div>About</div>' };
 
-const routes = [
+export const routes = [
   {
-    path: '/home',
+    path: '/',
+    text: 'Go to home',
     name: 'Home',
     component: Home,
   },
   {
     path: '/about',
+    text: 'Go to About',
     name: 'About',
     component: About,
   },
