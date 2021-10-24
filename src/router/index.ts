@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Home from '@/views/Home.vue';
 import Blog from '@/views/Blog.vue';
 import AddArticle from '@/views/AddArticle.vue';
+import SingleArticle from '@/views/SingleArticle.vue';
 
 export const routes = [
   {
@@ -20,6 +21,7 @@ export const routes = [
     name: 'Add Article',
     component: AddArticle,
   },
+  { path: '/blog/:id', component: SingleArticle },
 ];
 
 const router = createRouter({

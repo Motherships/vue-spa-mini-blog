@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import { CurrentArticle } from '@/models/ArticleModel';
-defineProps<{ article: CurrentArticle }>();
+import Article from '@/models/ArticleModel';
+defineProps<{ article: Article }>();
 </script>
 
 <template>
   <section class="article">
     <h2>{{ article.title }}</h2>
     <p>{{ article.content }}</p>
-    <p>{{ article.comments.length }}</p>
   </section>
 </template>
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useStore } from 'vuex';
 
-import Article from '@/components/Article.vue';
+import Article from '@/components/ArticleCard.vue';
 
 const store = useStore();
 </script>
@@ -18,7 +18,9 @@ const store = useStore();
               :key="article.id"
               class="blog__article"
             >
-              <Article :article="article" />
+              <router-link :to="'/blog/' + article.id">
+                <Article :article="article" />
+              </router-link>
             </li>
           </ul>
         </div>

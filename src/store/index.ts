@@ -7,22 +7,26 @@ import {
 } from 'vuex';
 import { nanoid } from 'nanoid';
 
-import Article, { newArticle } from '@/models/ArticleModel';
+import Article, { NewArticle, CurrentArticle } from '@/models/ArticleModel';
 
 export interface State {
   articles: Array<Article>;
-  currentArticle?: Article;
+  currentArticle?: CurrentArticle;
 }
 
 export const key: InjectionKey<Store<State>> = Symbol();
 
 const store = createStore<State>({
   state: {
-    articles: [] as Article[],
+    articles: (JSON.parse(localStorage.getItem('articles') || '[]') ||
+      []) as Article[],
+    currentArticle: (JSON.parse(
+      localStorage.getItem('currentArticle') || '{}'
+    ) || {}) as CurrentArticle,
   },
 
   mutations: {
-    addArticle(state, newArticle: newArticle) {
+    addArticle(state, newArticle: NewArticle) {
       const article = {
         id: nanoid(),
         title: newArticle.title,
@@ -30,6 +34,27 @@ const store = createStore<State>({
       } as Article;
 
       state.articles.push(article);
+      localStorage.setItem('articles', JSON.stringify(state.articles));
+    },
+
+    setCurrentArticleByID(state, articleID: string) {
+      const foundArticle = JSON.parse(
+        JSON.stringify(
+          state.articles.find((article) => article.id === articleID)
+        )
+      );
+      const article = {
+        id: foundArticle.id,
+        title: foundArticle.title,
+        content: foundArticle.content,
+        comments: [],
+      } as CurrentArticle;
+
+      state.currentArticle = article;
+      localStorage.setItem(
+        'currentArticle',
+        JSON.stringify(state.currentArticle)
+      );
     },
   },
 
