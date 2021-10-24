@@ -18,6 +18,7 @@ import Footer from '@/components/Footer.vue';
   flex-direction: column;
   main {
     flex: 1;
+    background-color: #fafafa;
   }
 }
 </style>

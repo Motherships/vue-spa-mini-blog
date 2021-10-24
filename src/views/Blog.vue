@@ -29,4 +29,17 @@ const store = useStore();
   </main>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.blog {
+  &__articles-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    margin: 0;
+    list-style: none;
+  }
+  &__article {
+  }
+}
+</style>

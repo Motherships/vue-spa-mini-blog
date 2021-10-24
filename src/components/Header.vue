@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { routes } from '@/router';
+import { staticRoutes } from '@/router';
 
 const showNavBar = ref(false);
 </script>
@@ -34,7 +34,11 @@ const showNavBar = ref(false);
 
       <div id="navbar" class="navbar-menu" :class="{ 'is-active': showNavBar }">
         <div class="navbar-start">
-          <div v-for="route in routes" :key="route.path" class="navbar-item">
+          <div
+            v-for="route in staticRoutes"
+            :key="route.path"
+            class="navbar-item"
+          >
             <router-link :to="route.path">{{ route.name }}</router-link>
           </div>
         </div>
