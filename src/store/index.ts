@@ -11,18 +11,13 @@ import Article, { NewArticle, CurrentArticle } from '@/models/ArticleModel';
 
 export interface State {
   articles: Array<Article>;
-  currentArticle?: CurrentArticle;
 }
 
 export const key: InjectionKey<Store<State>> = Symbol();
 
 const store = createStore<State>({
   state: {
-    articles: (JSON.parse(localStorage.getItem('articles') || '[]') ||
-      []) as Article[],
-    currentArticle: (JSON.parse(
-      localStorage.getItem('currentArticle') || '{}'
-    ) || {}) as CurrentArticle,
+    articles: JSON.parse(localStorage.getItem('articles') || '[]') as Article[],
   },
 
   mutations: {
@@ -36,25 +31,21 @@ const store = createStore<State>({
       state.articles.push(article);
       localStorage.setItem('articles', JSON.stringify(state.articles));
     },
+  },
 
-    setCurrentArticleByID(state, articleID: string) {
+  getters: {
+    setCurrentArticleByID: (state) => (articleID: string) => {
       const foundArticle = JSON.parse(
         JSON.stringify(
           state.articles.find((article) => article.id === articleID)
         )
       );
-      const article = {
+      return {
         id: foundArticle.id,
         title: foundArticle.title,
         content: foundArticle.content,
         comments: [],
       } as CurrentArticle;
-
-      state.currentArticle = article;
-      localStorage.setItem(
-        'currentArticle',
-        JSON.stringify(state.currentArticle)
-      );
     },
   },
 

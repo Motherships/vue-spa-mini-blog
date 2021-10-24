@@ -6,7 +6,7 @@ import Article from '@/components/Article.vue';
 const store = useStore();
 const route = useRoute();
 
-store.commit('setCurrentArticleByID', route.params.id);
+const article = store.getters.setCurrentArticleByID(route.params.id);
 </script>
 
 <template>
@@ -16,7 +16,7 @@ store.commit('setCurrentArticleByID', route.params.id);
         <div class="content">
           <div class="columns">
             <div class="column">
-              <Article :article="store.state.currentArticle" />
+              <Article :article="article" />
             </div>
           </div>
         </div>
