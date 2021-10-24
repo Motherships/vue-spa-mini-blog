@@ -1,8 +1,13 @@
-<script setup lang="ts">
-import Header from '@/components/Header.vue';
-import Footer from '@/components/Footer.vue';
-</script>
+<script setup lang="ts"></script>
 
-<template>Home</template>
+<template>
+  <section class="section">
+    <div class="container">
+      <div class="content">
+        <h1>Home page test</h1>
+      </div>
+    </div>
+  </section>
+</template>
 
 <style scoped lang="scss"></style>
