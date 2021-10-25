@@ -97,4 +97,10 @@ watch(
     list-style: none;
   }
 }
+
+.pagination {
+  .pagination-next {
+    margin-left: auto;
+  }
+}
 </style>
