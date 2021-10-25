@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 import { useStore } from 'vuex';
-
+import { QuillEditor } from '@vueup/vue-quill';
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
 const store = useStore();
 
 const defaultNewArticleForm = {
@@ -16,7 +17,11 @@ const defaultNewArticleForm = {
     touched: false,
   },
 };
+
+// const quillContent = ref({});
 const newArticleForm = reactive({ ...defaultNewArticleForm });
+
+const articleEditor = ref({} as typeof QuillEditor);
 
 const isTitleValid = () => {
   if (newArticleForm.title.value === '') {
@@ -32,6 +37,7 @@ const isTitleValid = () => {
 };
 
 const isContentValid = () => {
+  newArticleForm.content.value = articleEditor.value.getHTML();
   if (newArticleForm.content.value === '') {
     if (newArticleForm.content.touched === false) {
       newArticleForm.content.touched = true;
@@ -91,16 +97,12 @@ const sumbitForm = () => {
     <div class="field">
       <label class="label">Content</label>
       <div class="control">
-        <textarea
-          class="textarea"
-          placeholder="Content"
-          v-model="newArticleForm.content.value"
-          :class="{
-            'is-danger':
-              newArticleForm.content.touched && newArticleForm.content.error,
-          }"
-          @input="isContentValid"
-        ></textarea>
+        <QuillEditor
+          toolbar="minimal"
+          v-model:content="newArticleForm.content.value"
+          ref="articleEditor"
+          @update:content="isContentValid"
+        />
       </div>
       <p
         v-if="newArticleForm.content.touched && newArticleForm.content.error"

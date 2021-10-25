@@ -43,11 +43,6 @@ const showNavBar = ref(false);
               {{ route.name }}
             </router-link>
           </div>
-          <div class="navbar-item">
-            <router-link :to="{ name: 'Blog', params: { page: 1 } }">
-              Blog
-            </router-link>
-          </div>
         </div>
 
         <div class="navbar-end">
