@@ -21,7 +21,9 @@ defineProps<{ article: Article }>();
           </div>
         </div>
 
-        <div class="content" v-html="article.content"></div>
+        <div class="content">
+          {{ article.content.replace(/<[^>]*>?/gm, '').substr(0, 120) }}...
+        </div>
       </div>
     </div>
   </section>
