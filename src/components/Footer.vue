@@ -3,9 +3,7 @@
 <template>
   <footer class="footer">
     <div class="container">
-      <div class="content has-text-centered">
-        <h3>footer test</h3>
-      </div>
+      <div class="content has-text-centered"></div>
     </div>
   </footer>
 </template>

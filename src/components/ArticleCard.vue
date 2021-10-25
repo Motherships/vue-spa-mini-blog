@@ -38,4 +38,12 @@ const commentsCount = computed(() =>
   </section>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.article {
+  transition: transform ease-in-out 0.2s;
+  &:focus,
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+</style>
