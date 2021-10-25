@@ -37,7 +37,7 @@ const deleteArticle = () => {
               <h2 class="title">Comments</h2>
               <CommentsList :comments="comments" />
 
-              <AddCommentBlock :parent-id="article.id" />
+              <AddCommentBlock v-if="article.id" :parent-id="article.id" />
             </div>
           </div>
         </div>

@@ -15,14 +15,14 @@ const emit = defineEmits<{
           <div class="media-content">
             <p class="title is-4">{{ article.title }}</p>
           </div>
+          <div class="media-right">
+            <button class="button is-danger" @click="emit('deleteArticle')">
+              Delete
+            </button>
+          </div>
         </div>
 
         <div class="content" v-html="article.content"></div>
-        <div class="buttons">
-          <button class="button is-danger" @click="emit('deleteArticle')">
-            Delete
-          </button>
-        </div>
       </div>
     </div>
   </section>
