@@ -5,7 +5,7 @@ import { QuillEditor } from '@vueup/vue-quill';
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 const store = useStore();
 
-const defaultNewArticleForm = {
+const initialNewArticleForm = () => ({
   title: {
     value: '',
     error: true,
@@ -16,10 +16,9 @@ const defaultNewArticleForm = {
     error: true,
     touched: false,
   },
-};
+});
 
-// const quillContent = ref({});
-const newArticleForm = reactive({ ...defaultNewArticleForm });
+const newArticleForm = reactive(initialNewArticleForm());
 
 const articleEditor = ref({} as typeof QuillEditor);
 
@@ -50,6 +49,11 @@ const isContentValid = () => {
   return true;
 };
 
+const resetForm = () => {
+  Object.assign(newArticleForm, initialNewArticleForm());
+  articleEditor.value.setContents('');
+};
+
 const sumbitForm = () => {
   const titleIsValid = isTitleValid();
   const contentIsValid = isContentValid();
@@ -60,7 +64,8 @@ const sumbitForm = () => {
       content: newArticleForm.content.value,
     };
     store.commit('addArticle', newArticle);
-    Object.assign(newArticleForm, defaultNewArticleForm);
+
+    resetForm();
     return true;
   }
 
@@ -99,7 +104,6 @@ const sumbitForm = () => {
       <div class="control">
         <QuillEditor
           toolbar="minimal"
-          v-model:content="newArticleForm.content.value"
           ref="articleEditor"
           @update:content="isContentValid"
         />

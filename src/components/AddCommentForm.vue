@@ -9,7 +9,7 @@ const emit = defineEmits<{
 
 const store = useStore();
 
-const defaultNewCommentForm = {
+const initialNewCommentForm = () => ({
   name: {
     value: '',
     error: true,
@@ -20,8 +20,9 @@ const defaultNewCommentForm = {
     error: true,
     touched: false,
   },
-};
-const newCommentForm = reactive({ ...defaultNewCommentForm });
+});
+
+const newCommentForm = reactive(initialNewCommentForm());
 
 const isTitleValid = () => {
   if (newCommentForm.name.value === '') {
@@ -48,6 +49,10 @@ const isContentValid = () => {
   newCommentForm.content.error = false;
   return true;
 };
+
+const resetForm = () => {
+  Object.assign(newCommentForm, initialNewCommentForm());
+};
 const sumbitForm = () => {
   const nameIsValid = isTitleValid();
   const contentIsValid = isContentValid();
@@ -59,7 +64,7 @@ const sumbitForm = () => {
       content: newCommentForm.content.value,
     };
     store.commit('addComment', newComment);
-    Object.assign(newCommentForm, defaultNewCommentForm);
+    resetForm();
     emit('newComment');
     return true;
   }
