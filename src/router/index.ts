@@ -1,25 +1,25 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-import Home from '@/views/Home.vue';
-import Blog from '@/views/Blog.vue';
-import AddArticle from '@/views/AddArticle.vue';
+import HomePage from '@/views/HomePage.vue';
+import BlogPage from '@/views/BlogPage.vue';
+import AddArticlePage from '@/views/AddArticlePage.vue';
 import ArticlePage from '@/views/ArticlePage.vue';
 
 export const staticRoutes = [
   {
     path: '/',
     name: 'Home',
-    component: Home,
+    component: HomePage,
   },
   {
     path: '/blog',
     name: 'Blog',
-    component: Blog,
+    component: BlogPage,
   },
   {
     path: '/blog/new',
     name: 'Add Article',
-    component: AddArticle,
+    component: AddArticlePage,
   },
 ];
 
