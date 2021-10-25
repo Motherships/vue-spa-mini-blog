@@ -26,20 +26,25 @@ const deleteComment = () => {
           <div class="media-content">
             <p class="title is-4">{{ comment.authorName }}</p>
           </div>
+          <div class="media-right">
+            <div class="buttons">
+              <button
+                class="button"
+                @click="showCommentForm = !showCommentForm"
+              >
+                {{ showCommentForm ? 'Hide Comment form' : 'Add Comment' }}
+              </button>
+
+              <button class="button is-danger" @click="deleteComment">
+                Delete
+              </button>
+            </div>
+          </div>
         </div>
 
         <div class="content">
           {{ comment.content }}
         </div>
-        <footer class="card-footer">
-          <button class="button" @click="showCommentForm = !showCommentForm">
-            {{ showCommentForm ? 'Hide Comment form' : 'Add Comment' }}
-          </button>
-
-          <button class="button is-danger" @click="deleteComment">
-            Delete
-          </button>
-        </footer>
       </div>
     </div>
   </section>
@@ -61,5 +66,11 @@ const deleteComment = () => {
 <style scoped lang="scss">
 .comments-list {
   list-style: none;
+}
+
+.comment {
+  .buttons {
+    justify-content: flex-end;
+  }
 }
 </style>

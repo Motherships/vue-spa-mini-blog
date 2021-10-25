@@ -74,11 +74,13 @@ const resetForm = () => {
 
 const sumbitForm = () => {
   const titleIsValid = isTitleValid();
+  const excerptIsValid = isExcerptValid();
   const contentIsValid = isContentValid();
-  if (titleIsValid && contentIsValid) {
+  if (titleIsValid && excerptIsValid && contentIsValid) {
     console.log('valid');
     const newArticle = {
       title: newArticleForm.title.value,
+      excerpt: newArticleForm.excerpt.value,
       content: newArticleForm.content.value,
     };
     store.commit('addArticle', newArticle);
@@ -121,6 +123,7 @@ const sumbitForm = () => {
       <div class="control">
         <textarea
           v-model="newArticleForm.excerpt.value"
+          @input="isExcerptValid"
           placeholder="Excerpt"
           class="textarea"
           cols="30"

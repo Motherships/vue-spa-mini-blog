@@ -5,7 +5,7 @@ import BlogPage from '@/views/BlogPage.vue';
 import AddArticlePage from '@/views/AddArticlePage.vue';
 import ArticlePage from '@/views/ArticlePage.vue';
 
-export const staticRoutes = [
+export const leftRoutes = [
   {
     path: '/',
     name: 'Home',
@@ -16,6 +16,9 @@ export const staticRoutes = [
     name: 'Blog',
     component: BlogPage,
   },
+];
+
+export const rightRoutes = [
   {
     path: '/blog/new',
     name: 'Add Article',
@@ -23,6 +26,7 @@ export const staticRoutes = [
   },
 ];
 
+export const staticRoutes = [...leftRoutes, ...rightRoutes];
 export const dynamicRoutes = [
   { path: '/blog/:id', name: 'SingleArticle', component: ArticlePage },
 ];

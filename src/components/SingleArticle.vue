@@ -18,7 +18,7 @@ const emit = defineEmits<{
         </div>
 
         <div class="content" v-html="article.content"></div>
-        <div class="control">
+        <div class="buttons">
           <button class="button is-danger" @click="emit('deleteArticle')">
             Delete
           </button>

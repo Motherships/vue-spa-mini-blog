@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { staticRoutes } from '@/router';
+import { leftRoutes, rightRoutes } from '@/router';
 
 const showNavBar = ref(false);
 </script>
@@ -34,24 +34,26 @@ const showNavBar = ref(false);
 
       <div id="navbar" class="navbar-menu" :class="{ 'is-active': showNavBar }">
         <div class="navbar-start">
-          <div
-            v-for="route in staticRoutes"
+          <router-link
+            v-for="route in leftRoutes"
             :key="route.path"
+            :to="{ name: route.name }"
             class="navbar-item"
           >
-            <router-link :to="{ name: route.name }">
-              {{ route.name }}
-            </router-link>
-          </div>
+            {{ route.name }}
+          </router-link>
         </div>
 
         <div class="navbar-end">
-          <div class="navbar-item">
+          <div
+            v-for="route in rightRoutes"
+            :key="route.path"
+            class="navbar-item"
+          >
             <div class="buttons">
-              <a class="button is-primary">
-                <strong>Sign up</strong>
-              </a>
-              <a class="button is-light">Log in</a>
+              <router-link :to="{ name: route.name }" class="button is-primary">
+                {{ route.name }}
+              </router-link>
             </div>
           </div>
         </div>
