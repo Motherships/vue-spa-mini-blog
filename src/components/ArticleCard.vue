@@ -29,7 +29,7 @@ const commentsCount = computed(() =>
         </div>
 
         <div class="content">
-          {{ article.content.replace(/<[^>]*>?/gm, '').substr(0, 120) }}...
+          {{ article.excerpt }}
         </div>
 
         <div class="comments-count">{{ commentsCount }} comments</div>
