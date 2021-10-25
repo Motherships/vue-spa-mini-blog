@@ -37,6 +37,14 @@ const store = createStore<State>({
       localStorage.setItem('articles', JSON.stringify(state.articles));
     },
 
+    deleteArticle(state, articleId: string) {
+      // TODO: Comments with this id are still there ... w.e....
+      state.articles = state.articles.filter(
+        (article) => article.id != articleId
+      );
+      localStorage.setItem('articles', JSON.stringify(state.articles));
+    },
+
     addComment(state, newComment: NewComment) {
       const comment = {
         id: nanoid(),
@@ -44,8 +52,13 @@ const store = createStore<State>({
         authorName: newComment.authorName,
         content: newComment.content,
       } as CommentModel;
-
       state.comments.push(comment);
+      localStorage.setItem('comments', JSON.stringify(state.comments));
+    },
+    deleteComment(state, commentId: string) {
+      state.comments = state.comments.filter(
+        (comment) => comment.id != commentId
+      );
       localStorage.setItem('comments', JSON.stringify(state.comments));
     },
   },

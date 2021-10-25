@@ -1,6 +1,17 @@
 <script setup lang="ts">
+import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
+
 import Article from '@/models/ArticleModel';
-defineProps<{ article: Article }>();
+const props = defineProps<{ article: Article }>();
+
+const store = useStore();
+const router = useRouter();
+
+const deleteArticle = () => {
+  store.commit('deleteArticle', props.article.id);
+  router.push({ name: 'Blog' });
+};
 </script>
 
 <template>
@@ -14,6 +25,11 @@ defineProps<{ article: Article }>();
         </div>
 
         <div class="content" v-html="article.content"></div>
+        <div class="">
+          <button class="button is-danger" @click="deleteArticle">
+            Delete
+          </button>
+        </div>
       </div>
     </div>
   </section>

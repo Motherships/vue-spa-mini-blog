@@ -12,6 +12,10 @@ const showCommentForm = ref(false);
 const comments = computed(() =>
   store.getters.getCommentsByParentId(props.comment.id)
 );
+
+const deleteComment = () => {
+  store.commit('deleteComment', props.comment.id);
+};
 </script>
 
 <template>
@@ -30,6 +34,10 @@ const comments = computed(() =>
         <footer class="card-footer">
           <button class="button" @click="showCommentForm = !showCommentForm">
             {{ showCommentForm ? 'Hide Comment form' : 'Add Comment' }}
+          </button>
+
+          <button class="button is-danger" @click="deleteComment">
+            Delete
           </button>
         </footer>
       </div>
