@@ -11,6 +11,11 @@ const initialNewArticleForm = () => ({
     error: true,
     touched: false,
   },
+  excerpt: {
+    value: '',
+    error: true,
+    touched: false,
+  },
   content: {
     value: '',
     error: true,
@@ -32,6 +37,19 @@ const isTitleValid = () => {
   }
 
   newArticleForm.title.error = false;
+  return true;
+};
+
+const isExcerptValid = () => {
+  if (newArticleForm.excerpt.value === '') {
+    if (newArticleForm.excerpt.touched === false) {
+      newArticleForm.excerpt.touched = true;
+    }
+    newArticleForm.excerpt.error = true;
+    return false;
+  }
+
+  newArticleForm.excerpt.error = false;
   return true;
 };
 
@@ -80,10 +98,10 @@ const sumbitForm = () => {
       <label class="label">Title</label>
       <div class="control">
         <input
+          v-model="newArticleForm.title.value"
           class="input"
           type="text"
           placeholder="Title"
-          v-model="newArticleForm.title.value"
           :class="{
             'is-danger':
               newArticleForm.title.touched && newArticleForm.title.error,
@@ -98,7 +116,28 @@ const sumbitForm = () => {
         Title can't be empty
       </p>
     </div>
-
+    <div class="field">
+      <label class="label">Excerpt</label>
+      <div class="control">
+        <textarea
+          v-model="newArticleForm.excerpt.value"
+          placeholder="Excerpt"
+          class="textarea"
+          cols="30"
+          rows="2"
+          :class="{
+            'is-danger':
+              newArticleForm.excerpt.touched && newArticleForm.excerpt.error,
+          }"
+        ></textarea>
+      </div>
+      <p
+        v-if="newArticleForm.excerpt.touched && newArticleForm.excerpt.error"
+        class="help is-danger"
+      >
+        Excerpt can't be empty
+      </p>
+    </div>
     <div class="field">
       <label class="label">Content</label>
       <div class="control">
