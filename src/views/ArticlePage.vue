@@ -8,17 +8,20 @@ import CommentsList from '@/components/CommentsList.vue';
 
 const store = useStore();
 const route = useRoute();
+const router = useRouter();
 
 const article = computed(() => store.getters.getArticleById(route.params.id));
+
+if (!article.value.id) {
+  router.push({ name: 'notFoundPage' });
+}
 const comments = computed(() =>
   store.getters.getCommentsByParentId(article.value.id)
 );
 
-const router = useRouter();
-
 const deleteArticle = () => {
   store.commit('deleteArticle', article.value.id);
-  router.push({ name: 'Blog' });
+  router.push({ name: 'blog' });
 };
 </script>
 

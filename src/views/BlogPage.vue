@@ -48,7 +48,9 @@ function addArticles($state: any) {
               :key="article.id"
               class="blog__article"
             >
-              <router-link :to="'/blog/' + article.id">
+              <router-link
+                :to="{ name: 'singleArticle', params: { id: article.id } }"
+              >
                 <ArticleCard :article="article" />
               </router-link>
             </li>

@@ -4,16 +4,19 @@ import HomePage from '@/views/HomePage.vue';
 import BlogPage from '@/views/BlogPage.vue';
 import AddArticlePage from '@/views/AddArticlePage.vue';
 import ArticlePage from '@/views/ArticlePage.vue';
+import NotFoundPage from '@/views/NotFoundPage.vue';
 
 export const leftRoutes = [
   {
     path: '/',
-    name: 'Home',
+    label: 'Home',
+    name: 'home',
     component: HomePage,
   },
   {
     path: '/blog',
-    name: 'Blog',
+    label: 'Blog',
+    name: 'blog',
     component: BlogPage,
   },
 ];
@@ -21,14 +24,31 @@ export const leftRoutes = [
 export const rightRoutes = [
   {
     path: '/blog/new',
-    name: 'Add Article',
+    label: 'Add Article',
+    name: 'addArticle',
     component: AddArticlePage,
   },
 ];
 
 export const staticRoutes = [...leftRoutes, ...rightRoutes];
 export const dynamicRoutes = [
-  { path: '/blog/:id', name: 'SingleArticle', component: ArticlePage },
+  {
+    path: '/blog/:id',
+    label: 'Single Article',
+    name: 'singleArticle',
+    component: ArticlePage,
+  },
+
+  {
+    path: '/not-found-404',
+    label: 'Not Found Page',
+    name: 'notFoundPage',
+    component: NotFoundPage,
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: { name: 'notFoundPage' },
+  },
 ];
 
 const router = createRouter({

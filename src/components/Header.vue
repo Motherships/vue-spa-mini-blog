@@ -40,7 +40,7 @@ const showNavBar = ref(false);
             :to="{ name: route.name }"
             class="navbar-item"
           >
-            {{ route.name }}
+            {{ route.label }}
           </router-link>
         </div>
 
@@ -52,7 +52,7 @@ const showNavBar = ref(false);
           >
             <div class="buttons">
               <router-link :to="{ name: route.name }" class="button is-primary">
-                {{ route.name }}
+                {{ route.label }}
               </router-link>
             </div>
           </div>
