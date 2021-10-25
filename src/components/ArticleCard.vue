@@ -1,6 +1,13 @@
 <script setup lang="ts">
+import { computed } from '@vue/reactivity';
+import { useStore } from 'vuex';
 import Article from '@/models/ArticleModel';
-defineProps<{ article: Article }>();
+const props = defineProps<{ article: Article }>();
+const store = useStore();
+
+const commentsCount = computed(() =>
+  store.getters.getCommentsNumberByArticleId(props.article.id)
+);
 </script>
 
 <template>
@@ -24,6 +31,8 @@ defineProps<{ article: Article }>();
         <div class="content">
           {{ article.content.replace(/<[^>]*>?/gm, '').substr(0, 120) }}...
         </div>
+
+        <div class="comments-count">{{ commentsCount }} comments</div>
       </div>
     </div>
   </section>

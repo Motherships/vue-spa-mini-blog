@@ -87,6 +87,26 @@ const store = createStore<State>({
 
       return comments as CommentModel[];
     },
+
+    getCommentsNumberByArticleId: (state) => (id: string) => {
+      const comments = JSON.parse(
+        JSON.stringify(
+          state.comments.filter((comment) => comment.parentId === id) || []
+        )
+      );
+
+      let commentsCount = comments.length;
+      for (const comment of comments) {
+        const children = JSON.parse(
+          JSON.stringify(
+            state.comments.filter((c) => c.parentId === comment.id) || []
+          )
+        );
+        commentsCount += children.length;
+      }
+
+      return commentsCount;
+    },
   },
 
   strict: true,
