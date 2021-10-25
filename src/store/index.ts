@@ -8,11 +8,11 @@ import {
 import { nanoid } from 'nanoid';
 
 import Article, { NewArticle } from '@/models/ArticleModel';
-import CommentModel, { NewComment } from '@/models/CommentModel';
+import Comment, { NewComment } from '@/models/CommentModel';
 
 export interface State {
   articles: Array<Article>;
-  comments: Array<CommentModel>;
+  comments: Array<Comment>;
 }
 
 export const key: InjectionKey<Store<State>> = Symbol();
@@ -20,19 +20,12 @@ export const key: InjectionKey<Store<State>> = Symbol();
 const store = createStore<State>({
   state: {
     articles: JSON.parse(localStorage.getItem('articles') || '[]') as Article[],
-    comments: JSON.parse(
-      localStorage.getItem('comments') || '[]'
-    ) as CommentModel[],
+    comments: JSON.parse(localStorage.getItem('comments') || '[]') as Comment[],
   },
 
   mutations: {
     addArticle(state, newArticle: NewArticle) {
-      const article = {
-        id: nanoid(),
-        title: newArticle.title,
-        content: newArticle.content,
-      } as Article;
-
+      const article = { ...newArticle, id: nanoid() } as Article;
       state.articles.push(article);
       localStorage.setItem('articles', JSON.stringify(state.articles));
     },
@@ -46,12 +39,7 @@ const store = createStore<State>({
     },
 
     addComment(state, newComment: NewComment) {
-      const comment = {
-        id: nanoid(),
-        parentId: newComment.parentId,
-        authorName: newComment.authorName,
-        content: newComment.content,
-      } as CommentModel;
+      const comment = { ...newComment, id: nanoid() } as Comment;
       state.comments.push(comment);
       localStorage.setItem('comments', JSON.stringify(state.comments));
     },
@@ -70,12 +58,7 @@ const store = createStore<State>({
           state.articles.find((article) => article.id === articleID) || {}
         )
       );
-      return {
-        id: foundArticle.id,
-        title: foundArticle.title,
-        content: foundArticle.content,
-        comments: [],
-      } as Article;
+      return { ...foundArticle } as Article;
     },
 
     getCommentsByParentId: (state) => (id: string) => {
@@ -85,7 +68,7 @@ const store = createStore<State>({
         )
       );
 
-      return comments as CommentModel[];
+      return comments as Comment[];
     },
 
     getCommentsNumberByArticleId: (state) => (id: string) => {

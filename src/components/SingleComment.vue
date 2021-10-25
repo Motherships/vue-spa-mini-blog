@@ -2,10 +2,10 @@
 import { ref } from 'vue';
 import { computed } from '@vue/reactivity';
 import { useStore } from 'vuex';
-import CommentModel from '@/models/CommentModel';
+import Comment from '@/models/CommentModel';
 import AddCommentBlock from '@/components/AddCommentBlock.vue';
 
-const props = defineProps<{ comment: CommentModel }>();
+const props = defineProps<{ comment: Comment }>();
 const store = useStore();
 const showCommentForm = ref(false);
 

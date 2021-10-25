@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import SingleComment from '@/components/SingleComment.vue';
-import CommentModel from '@/models/CommentModel';
+import Comment from '@/models/CommentModel';
 
-defineProps<{ comments: CommentModel[] }>();
+defineProps<{ comments: Comment[] }>();
 </script>
 
 <template>
