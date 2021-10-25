@@ -1,17 +1,10 @@
 <script setup lang="ts">
-import { useStore } from 'vuex';
-import { useRouter } from 'vue-router';
-
 import Article from '@/models/ArticleModel';
-const props = defineProps<{ article: Article }>();
+defineProps<{ article: Article }>();
 
-const store = useStore();
-const router = useRouter();
-
-const deleteArticle = () => {
-  store.commit('deleteArticle', props.article.id);
-  router.push({ name: 'Blog' });
-};
+const emit = defineEmits<{
+  (e: 'deleteArticle'): void;
+}>();
 </script>
 
 <template>
@@ -25,8 +18,8 @@ const deleteArticle = () => {
         </div>
 
         <div class="content" v-html="article.content"></div>
-        <div class="">
-          <button class="button is-danger" @click="deleteArticle">
+        <div class="control">
+          <button class="button is-danger" @click="emit('deleteArticle')">
             Delete
           </button>
         </div>
