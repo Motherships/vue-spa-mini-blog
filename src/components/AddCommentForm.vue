@@ -80,10 +80,10 @@ const sumbitForm = () => {
       <label class="label">Author Name</label>
       <div class="control">
         <input
+          v-model="newCommentForm.name.value"
           class="input"
           type="text"
           placeholder="Author name"
-          v-model="newCommentForm.name.value"
           :class="{
             'is-danger':
               newCommentForm.name.touched && newCommentForm.name.error,
@@ -103,9 +103,9 @@ const sumbitForm = () => {
       <label class="label">Content</label>
       <div class="control">
         <textarea
+          v-model="newCommentForm.content.value"
           class="textarea"
           placeholder="Content"
-          v-model="newCommentForm.content.value"
           :class="{
             'is-danger':
               newCommentForm.content.touched && newCommentForm.content.error,

@@ -1,27 +1,21 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { useStore } from 'vuex';
-import { useRoute } from 'vue-router';
-
-import Article from '@/components/ArticleCard.vue';
-const ARTICLES_PER_PAGE = 2;
-
+import Article from '@/models/ArticleModel';
+import ArticleCard from '@/components/ArticleCard.vue';
+import InfiniteLoading from 'vue-infinite-loading';
+const ARTICLES_PER_PAGE = 5;
 const store = useStore();
-const route = useRoute();
 
-const numberOfPages = ref(
-  Math.ceil((store.state.articles.length || 1) / ARTICLES_PER_PAGE)
-);
+const page = ref(0);
+const currentArticles = ref<Array<Article>>([]);
 
-function getCurrentPage() {
-  return parseInt(route.query.page as string) || 1;
-}
-const currentPage = ref(getCurrentPage());
-
-function fetchArticles() {
-  const articles = store.state.articles.slice(
-    (currentPage.value - 1) * ARTICLES_PER_PAGE
-  );
+function fetchArticles(): Array<Article> {
+  const itemsToSkip = (page.value - 1) * ARTICLES_PER_PAGE;
+  if (store.state.articles.length < itemsToSkip) {
+    return [];
+  }
+  const articles = store.state.articles.slice(itemsToSkip);
 
   let numberToCut = ARTICLES_PER_PAGE;
   if (articles.length < numberToCut) {
@@ -30,17 +24,16 @@ function fetchArticles() {
   return articles.slice(0, numberToCut);
 }
 
-const currentArticles = ref(fetchArticles());
-
-watch(
-  () => route.query.page,
-  (first, second) => {
-    currentPage.value = getCurrentPage();
-    console.log(currentPage.value);
-    currentArticles.value = fetchArticles();
-    console.log(currentArticles.value);
+function addArticles($state: any) {
+  page.value += 1;
+  const articles = fetchArticles();
+  if (articles.length) {
+    currentArticles.value.push(...articles);
+    $state.loaded();
+  } else {
+    $state.complete();
   }
-);
+}
 </script>
 
 <template>
@@ -56,30 +49,11 @@ watch(
               class="blog__article"
             >
               <router-link :to="'/blog/' + article.id">
-                <Article :article="article" />
+                <ArticleCard :article="article" />
               </router-link>
             </li>
           </ul>
-          <nav
-            class="pagination is-large"
-            role="navigation"
-            aria-label="pagination"
-          >
-            <span v-if="currentPage > 1" class="pagination-previous">
-              <router-link
-                :to="{ name: 'Blog', query: { page: currentPage - 1 } }"
-              >
-                Previous
-              </router-link>
-            </span>
-            <span v-if="numberOfPages > currentPage" class="pagination-next">
-              <router-link
-                :to="{ name: 'Blog', query: { page: currentPage + 1 } }"
-              >
-                Next page
-              </router-link>
-            </span>
-          </nav>
+          <infinite-loading @infinite="addArticles"></infinite-loading>
         </div>
       </div>
     </section>
@@ -95,12 +69,6 @@ watch(
 
     margin: 0;
     list-style: none;
-  }
-}
-
-.pagination {
-  .pagination-next {
-    margin-left: auto;
   }
 }
 </style>
