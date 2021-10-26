@@ -79,16 +79,15 @@ const store = createStore<State>({
       return comments as Comment[];
     },
 
-    getCommentsNumberByArticleId: (state) => (id: string) => {
-      const comments =
-        state.comments.filter((comment) => comment.parentId === id) || [];
-      let commentsCount = comments.length;
+    getCommentsNumberByArticleId: (state, getters) => (id: string) => {
+      let commentsCount = 0;
+      const comments = state.comments.filter((c) => c.parentId === id) || [];
+      commentsCount += comments.length;
       for (const comment of comments) {
-        const children =
-          state.comments.filter((c) => c.parentId === comment.id) || [];
-        commentsCount += children.length;
+        commentsCount += getters.getCommentsNumberByArticleId(comment.id);
       }
 
+      console.log(commentsCount);
       return commentsCount;
     },
   },
