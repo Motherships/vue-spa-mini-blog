@@ -7,7 +7,7 @@ import {
 } from 'vuex';
 import { nanoid } from 'nanoid';
 
-import Article, { NewArticle } from '@/models/ArticleModel';
+import Article, { NewArticle, UpdatedArticle } from '@/models/ArticleModel';
 import Comment, { NewComment, UpdatedComment } from '@/models/CommentModel';
 
 export interface State {
@@ -29,7 +29,14 @@ const store = createStore<State>({
       state.articles.push(article);
       localStorage.setItem('articles', JSON.stringify(state.articles));
     },
-
+    updateArticle(state, updatedArticle: UpdatedArticle) {
+      const article = state.articles.find(
+        (article) => article.id === updatedArticle.id
+      );
+      const index = state.articles.indexOf(article as Article);
+      state.articles[index] = { ...article, ...updatedArticle } as Article;
+      localStorage.setItem('articles', JSON.stringify(state.articles));
+    },
     deleteArticle(state, articleId: string) {
       // TODO: Comments with this id are still there ... w.e....
       state.articles = state.articles.filter(

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AddCommentForm from '@/components/AddCommentForm.vue';
+import CommentForm from '@/components/CommentForm.vue';
 
 defineProps<{ parentId: string }>();
 
@@ -19,7 +19,7 @@ const emit = defineEmits<{
         </div>
 
         <div class="content">
-          <AddCommentForm
+          <CommentForm
             :parent-id="parentId"
             @new-comment="emit('newComment')"
           />

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import ArticleForm from '@/components/ArticleForm.vue';
 import Article from '@/models/ArticleModel';
-defineProps<{ article?: Article }>();
+defineProps<{ article: Article }>();
 </script>
 
 <template>
@@ -11,7 +11,7 @@ defineProps<{ article?: Article }>();
         <div class="card-content">
           <div class="media">
             <div class="media-content">
-              <p class="title">Add Article</p>
+              <p class="title">Edit Article</p>
             </div>
           </div>
 

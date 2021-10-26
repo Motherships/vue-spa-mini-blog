@@ -5,6 +5,7 @@ import BlogPage from '@/views/BlogPage.vue';
 import AddArticlePage from '@/views/AddArticlePage.vue';
 import ArticlePage from '@/views/ArticlePage.vue';
 import NotFoundPage from '@/views/NotFoundPage.vue';
+import EditArticlePage from '@/views/EditArticlePage.vue';
 
 export const leftRoutes = [
   {
@@ -37,6 +38,13 @@ export const dynamicRoutes = [
     label: 'Single Article',
     name: 'singleArticle',
     component: ArticlePage,
+  },
+
+  {
+    path: '/blog/:id/edit',
+    label: 'Edit Article',
+    name: 'editArticle',
+    component: EditArticlePage,
   },
 
   {

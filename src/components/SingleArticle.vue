@@ -16,9 +16,17 @@ const emit = defineEmits<{
             <p class="title is-4">{{ article.title }}</p>
           </div>
           <div class="media-right">
-            <button class="button is-danger" @click="emit('deleteArticle')">
-              Delete
-            </button>
+            <div class="buttons">
+              <router-link
+                :to="{ name: 'editArticle', params: { id: article.id } }"
+                class="button is-primary"
+              >
+                Edit
+              </router-link>
+              <button class="button is-danger" @click="emit('deleteArticle')">
+                Delete
+              </button>
+            </div>
           </div>
         </div>
 
