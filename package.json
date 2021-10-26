@@ -9,16 +9,16 @@
     "format": "prettier .  --write"
   },
   "dependencies": {
+    "@ts-pro/vue-eternal-loading": "^1.1.1",
     "@vueup/vue-quill": "^1.0.0-beta.7",
     "bulma": "^0.9.3",
     "nanoid": "^3.1.30",
     "vue": "^3.2.16",
-    "vue-infinite-loading": "3.0.0-alpha.0-0",
     "vue-router": "4",
     "vuex": "^4.0.2"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.1.0",
+    "@typescript-eslint/eslint-plugin": "^5.2.0",
     "@typescript-eslint/parser": "^5.1.0",
     "@vitejs/plugin-vue": "^1.9.3",
     "eslint": "^8.1.0",

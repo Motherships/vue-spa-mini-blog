@@ -3,7 +3,8 @@ import { ref } from 'vue';
 import { useStore } from 'vuex';
 import Article from '@/models/ArticleModel';
 import ArticleCard from '@/components/ArticleCard.vue';
-import InfiniteLoading from 'vue-infinite-loading';
+import { VueEternalLoading, LoadAction } from '@ts-pro/vue-eternal-loading';
+
 const ARTICLES_PER_PAGE = 5;
 const store = useStore();
 
@@ -24,15 +25,11 @@ function fetchArticles(): Array<Article> {
   return articles.slice(0, numberToCut);
 }
 
-function addArticles($state: any) {
-  page.value += 1;
+function addArticles({ loaded }: LoadAction): void {
   const articles = fetchArticles();
-  if (articles.length) {
-    currentArticles.value.push(...articles);
-    $state.loaded();
-  } else {
-    $state.complete();
-  }
+  page.value += 1;
+  currentArticles.value.push(...articles);
+  loaded(articles.length, ARTICLES_PER_PAGE);
 }
 </script>
 
@@ -55,7 +52,8 @@ function addArticles($state: any) {
               </router-link>
             </li>
           </ul>
-          <infinite-loading @infinite="addArticles"></infinite-loading>
+          <!-- <infinite-loading @infinite="addArticles"></infinite-loading> -->
+          <VueEternalLoading :load="addArticles"></VueEternalLoading>
         </div>
       </div>
     </section>

@@ -29,7 +29,7 @@ const emit = defineEmits<{
             </div>
           </div>
         </div>
-
+        <!-- eslint-disable vue/no-v-html -->
         <div class="content" v-html="article.content"></div>
       </div>
     </div>

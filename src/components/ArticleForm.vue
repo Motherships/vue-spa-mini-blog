@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, ref, toRefs, watch } from 'vue';
+import { reactive, ref, toRefs } from 'vue';
 import { useStore } from 'vuex';
 import { QuillEditor } from '@vueup/vue-quill';
 
@@ -188,7 +188,6 @@ const updateArticle = () => {
     <div class="control">
       <textarea
         v-model="newArticleForm.excerpt.value"
-        @input="isExcerptValid"
         placeholder="Excerpt"
         class="textarea"
         cols="30"
@@ -197,6 +196,7 @@ const updateArticle = () => {
           'is-danger':
             newArticleForm.excerpt.touched && newArticleForm.excerpt.error,
         }"
+        @input="isExcerptValid"
       ></textarea>
     </div>
     <p
@@ -210,11 +210,11 @@ const updateArticle = () => {
     <label class="label">Content</label>
     <div class="control">
       <QuillEditor
-        toolbar="minimal"
         ref="articleEditor"
-        @update:content="isContentValid"
+        toolbar="minimal"
         :content="newArticleForm.content.value"
-        :contentType="'html'"
+        :content-type="'html'"
+        @update:content="isContentValid"
       />
     </div>
     <p
@@ -229,7 +229,6 @@ const updateArticle = () => {
     <div class="control">
       <button
         class="button is-link"
-        @click="sumbitForm"
         :disabled="
           newArticleForm.title.error ||
           newArticleForm.excerpt.error ||
@@ -241,6 +240,7 @@ const updateArticle = () => {
             newArticleForm.excerpt.error ||
             newArticleForm.content.error,
         }"
+        @click="sumbitForm"
       >
         Submit
       </button>
@@ -251,7 +251,6 @@ const updateArticle = () => {
     <div class="control">
       <button
         class="button is-link"
-        @click="updateArticle"
         :disabled="
           newArticleForm.title.error ||
           newArticleForm.excerpt.error ||
@@ -263,6 +262,7 @@ const updateArticle = () => {
             newArticleForm.excerpt.error ||
             newArticleForm.content.error,
         }"
+        @click="updateArticle"
       >
         Save
       </button>
