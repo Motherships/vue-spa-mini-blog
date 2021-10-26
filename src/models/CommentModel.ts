@@ -3,6 +3,13 @@ export interface NewComment {
   authorName: string;
   content: string;
 }
+
+export interface UpdatedComment {
+  id: string;
+  authorName: string;
+  content: string;
+}
+
 export default interface Comment {
   id: string;
   parentId: string;

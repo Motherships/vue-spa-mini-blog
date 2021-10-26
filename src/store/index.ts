@@ -8,7 +8,7 @@ import {
 import { nanoid } from 'nanoid';
 
 import Article, { NewArticle } from '@/models/ArticleModel';
-import Comment, { NewComment } from '@/models/CommentModel';
+import Comment, { NewComment, UpdatedComment } from '@/models/CommentModel';
 
 export interface State {
   articles: Array<Article>;
@@ -41,6 +41,14 @@ const store = createStore<State>({
     addComment(state, newComment: NewComment) {
       const comment = { ...newComment, id: nanoid() } as Comment;
       state.comments.push(comment);
+      localStorage.setItem('comments', JSON.stringify(state.comments));
+    },
+    updateComment(state, updatedComment: UpdatedComment) {
+      const comment = state.comments.find(
+        (comment) => comment.id === updatedComment.id
+      );
+      const index = state.comments.indexOf(comment as Comment);
+      state.comments[index] = { ...comment, ...updatedComment } as Comment;
       localStorage.setItem('comments', JSON.stringify(state.comments));
     },
     deleteComment(state, commentId: string) {
