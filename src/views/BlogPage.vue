@@ -52,7 +52,6 @@ function addArticles({ loaded }: LoadAction): void {
               </router-link>
             </li>
           </ul>
-          <!-- <infinite-loading @infinite="addArticles"></infinite-loading> -->
           <VueEternalLoading :load="addArticles"></VueEternalLoading>
         </div>
       </div>
